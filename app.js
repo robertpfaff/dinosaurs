@@ -64,7 +64,7 @@ let dinoData = [];
 // Step 3) Prepare to make dino objects.
 // Don't call until user object made after button click.
 
-function MakeDinos(Dinosaurs, user) { 
+function MakeDinos(Dinosaurs, user, data) { 
     dinoData = data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
     // Splice user object into Dino object
     dinoData.splice(4,0, user)
@@ -115,7 +115,7 @@ button.addEventListener('click', (e) => {
 })
 
 // Now call MakeDinos with user and Dinosaurs.
-const dino = MakeDinos(Dinosaurs, user);
+const dino = MakeDinos(Dinosaurs, user, data);
 
 
 // Create Dino Compare Method 1
