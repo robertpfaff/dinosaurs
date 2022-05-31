@@ -49,11 +49,12 @@ class Dinosaurs {
 
 let dinoData = [];
 
-(function (Dinosaurs, user) {
+(function (Dinosaurs) {
     fetch("./dino.json")
     .then(response => response.json())
     .then(json_data => {   
         dinoData = json_data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
+        let user = Human{};
         dinoData.splice(4,0, user);
         console.log('dinoData Array Contents:')
         console.log(dinoData);
@@ -61,7 +62,7 @@ let dinoData = [];
         dinoData.forEach(dino => console.log(dino.species));
         return dinoData
     }).then(dinoData=> console.table(dinoData))   
-  })(Dinosaurs, user);
+  })(Dinosaurs);
 
 // Build constructor function to collect human data
 
@@ -96,3 +97,22 @@ button.addEventListener("click", function(e){
 })
 
 // Create Dino Compare Method 1
+// NOTE: Weight in JSON file is in lbs, height in inches.
+
+    
+    // Create Dino Compare Method 2
+    // NOTE: Weight in JSON file is in lbs, height in inches.
+
+    
+    // Create Dino Compare Method 3
+    // NOTE: Weight in JSON file is in lbs, height in inches.
+
+
+    // Generate Tiles for each Dino in Array
+  
+        // Add tiles to DOM
+
+    // Remove form from screen
+
+
+// On button click, prepare and display infographic
