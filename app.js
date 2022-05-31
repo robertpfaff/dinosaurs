@@ -1,5 +1,4 @@
 // Fetch Dino Data
-
 const getDinoData = async () => {
     const fetchedData = await fetch("./dino.json");
     const data = await fetchedData.json();
@@ -8,9 +7,11 @@ const getDinoData = async () => {
  };
  
 // Call before button click
+// Step 1: Get the dino json data.
 getDinoData();
 
 // Create Dino Constructor
+// Step 2 Make the Dinosaur constructor
 
 class Dinosaurs {
     constructor(species, weight, height, diet, where, when, fact) {
@@ -57,22 +58,27 @@ class Dinosaurs {
         }}
 
 // Create Dino Objects
-// Don't call until user data ready.
 
 let dinoData = [];
 
-const MakeDinos = function (Dinosaurs, user) { 
+// Step 3) Prepare to make dino objects.
+// Don't call until user object made after button click.
+
+function MakeDinos(Dinosaurs, user) { 
     dinoData = data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
+    // Splice user object into Dino object
     dinoData.splice(4,0, user)
     console.log('dinoData Array Contents:')
     console.log(dinoData);
     console.log(typeof dinoData);
+    // test t0 see if array of objects operational
+    console.log('List of Dinosaur Species:')
     dinoData.forEach(dino => console.log(dino.species));
     return dinoData
 }
 
-// Create Human Construction Function
-// Call when making new human
+// Step 4) Create Human with Constructor Function
+// Call with new keyword after button click.
 
 class Human {
     constructor(name, species, height, weight, diet) {
@@ -84,7 +90,7 @@ class Human {
     }
 }
 
-// Collect User Input with button click event listener
+// Step 5) Collect User Input with button click event listener
 // Use IIFE to get user input, place inside an array
 // Make new Human from collected data
 
@@ -101,19 +107,15 @@ button.addEventListener('click', (e) => {
         let diet = document.getElementById('diet').value;
         let species = "Human Being";
         
-        // Mint New Human after button click
-
+        // Mint new Human after button click
         let user = new Human;
         console.log(user.name)
-        return user
-      
-    })();
+        return user      
+    })(Human);
 })
 
 // Now call MakeDinos with user and Dinosaurs.
 const dino = MakeDinos(Dinosaurs, user);
-console.table(dinos)
-
 
 
 // Create Dino Compare Method 1
