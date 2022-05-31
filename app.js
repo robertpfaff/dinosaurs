@@ -1,3 +1,15 @@
+// Fetch Dino Data
+
+const getDinoData = async () => {
+    const fetchedData = await fetch("./dino.json");
+    const data = await fetchedData.json();
+    console.table(data);
+    return data;
+ };
+ 
+// Call before button click
+getDinoData();
+
 // Create Dino Constructor
 
 class Dinosaurs {
@@ -41,60 +53,68 @@ class Dinosaurs {
                     break;
                 default:
                     return `Sorry. The ${this.species}'s diet is unknown.`;
+            }}
         }}
-    }
-}
 
-// Parse dino.json, create dino objects
+// Create Dino Objects
+// Don't call until user data ready.
 
 let dinoData = [];
 
-(function (Dinosaurs) {
-    fetch("./dino.json")
-    .then(response => response.json())
-    .then(json_data => {   
-        dinoData = json_data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
-        let user = Human{};
-        dinoData.splice(4,0, user);
-        console.log('dinoData Array Contents:')
-        console.log(dinoData);
-        console.log(typeof dinoData);
-        dinoData.forEach(dino => console.log(dino.species));
-        return dinoData
-    }).then(dinoData=> console.table(dinoData))   
-  })(Dinosaurs);
-
-// Build constructor function to collect human data
-
-function Human (){
-        let user_name = document.getElementById('name').value;
-        let height_feet = (document.getElementById('feet').value * 12 );
-        let height_inches = (document.getElementById('inches').value);
-        let user_height = (+height_feet + +height_inches);
-        let user_weight = document.getElementById('weight').value;
-        let user_diet = document.getElementById('diet').value;
-        let user_species = "Human Being";
-        let userData = {
-            name: user_name,
-            species: user_species,
-            height: user_height,
-            weight: user_weight,
-            diet: user_diet };
-    console.log("User Data in Human Constructor")
-    console.table(userData);
-    return userData;
+const MakeDinos = function (Dinosaurs, user) { 
+    dinoData = data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
+    dinoData.splice(4,0, user)
+    console.log('dinoData Array Contents:')
+    console.log(dinoData);
+    console.log(typeof dinoData);
+    dinoData.forEach(dino => console.log(dino.species));
+    return dinoData
 }
 
-// Instantiate new instance of human on form submit
+// Create Human Construction Function
+// Call when making new human
 
-const button = document.getElementById("btn");
-button.addEventListener("click", function(e){
-  e.preventDefault();
-  let user = new Human
-  console.log("User in Instantiate Function")
-  console.table(user);
-    return user
+class Human {
+    constructor(name, species, height, weight, diet) {
+        this.name = name;
+        this.species = species;
+        this.height = height;
+        this.weight = weight;
+        this.diet = diet;
+    }
+}
+
+// Collect User Input with button click event listener
+// Use IIFE to get user input, place inside an array
+// Make new Human from collected data
+
+let button = document.getElementById('btn');
+
+button.addEventListener('click', (e) => {
+    e.preventDefault();
+    return (() => {
+        let name = document.getElementById('name').value;
+        let height_feet = (document.getElementById('feet').value * 12 );
+        let height_inches = (document.getElementById('inches').value);
+        let height = (+height_feet + +height_inches);
+        let weight = document.getElementById('weight').value;
+        let diet = document.getElementById('diet').value;
+        let species = "Human Being";
+        
+        // Mint New Human after button click
+
+        let user = new Human;
+        console.log(user.name)
+        return user
+      
+    })();
 })
+
+// Now call MakeDinos with user and Dinosaurs.
+const dino = MakeDinos(Dinosaurs, user);
+console.table(dinos)
+
+
 
 // Create Dino Compare Method 1
 // NOTE: Weight in JSON file is in lbs, height in inches.
