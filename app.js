@@ -1,140 +1,107 @@
-// Fetch Dino Data
-const getDinoData = async () => {
-    const fetchedData = await fetch("./dino.json");
-    const data = await fetchedData.json();
-    console.table(data);
-    return data;
- };
- 
-// Call before button click
-// Step 1: Get the dino json data.
-getDinoData();
+// Create Character Constructor
 
-// Create Dino Constructor
-// Step 2 Make the Dinosaur constructor
+class Characters {
+  constructor (species, height, weight, image, when, where, wherewhen, diet, facts) {
+  this.species = species;
+  this.height = height;
+  this.weight = weight;
+  this.image = "/images" + this.species.toLowerCase() + ".png";
+  this.when = this.when;
+  this.where = this.where;
+  this.wherewhen = `The ${this.species} lived in ${this.where}} during the ${this.when}`;
+  this.diet = this.diet;
+  this.facts = this.facts;
+}}
 
-class Dinosaurs {
-    constructor(species, weight, height, diet, where, when, fact) {
-        this.species = species;
-        this.weight = weight;
-        this.height = height;
-        this.diet = diet.toLowerCase();
-        this.where = `The ${this.species} lived in ${where}`;
-        this.when = `The ${this.species} lived during the ${when} period`;
-        this.where_when = `The ${this.species} lived in ${where} during the ${when} period`;
-        this.fact = fact;
-        this.image = "/images" + species.toLowerCase() + ".png";
-        
-        // call functions under tiles as inner html
-        this.weightComp = function () {
-            if (user.weight < this.weight) {           
-            let ratio = parseFloat((this.weight - user.weight) / user.weight) * 100;
-            return `The ${this.species} was ${ratio}% heavier than you.`;
-            } else {
-            let ratio = parseFloat((user.weight - this.weight) / this.weight) * 100;
-            return  `The ${this.species} was ${ratio}% lighter than you.`;
-            }}
-        
-        this.heightComp = function () {
-            if (user.height < this.height) {
-            let ratio = Math.round(this.weight - user.weight);
-            return `The ${this.species} was ${ratio} inches taller than you.`;
-            } else {
-            let ratio = Math.round(user.weight - this.weight);
-                return  `The ${this.species} was ${ratio} shorter than you.`;
-            }}
+// Create Dinosaur and Human Subclasses
 
-        this.dietComp = function() {
-            switch(this.diet === user.diet) {
-                case true:
-                    return  `Both the ${this.species} and you are ${this.diet}s.`;
-                    break;
-                case false:
-                    return  `You are a ${user.diet} and the ${this.species} was a ${this.diet}.`; 
-                    break;
-                default:
-                    return `Sorry. The ${this.species}'s diet is unknown.`;
-            }}
-        }}
+class Dinosaurs extends Characters {
+  constructor(species, height, weight, image, when, where, wherewhen, diet, facts) {
+    super(species, height, weight, image, when, where, wherewhen, diet, facts);
 
-// Create Dino Objects
+}}
+
+class HumanBeing extends Characters {
+  constructor(species, height, weight, image, diet, facts) {
+    super(species, height, weight, image, diet, facts);
+}}
+// WHAT HAPPENS BEFORE BUTTON CLICK?
+
+// Fetch dino data
+// Map Dino objects from json data
+// Place objects in array dinoData
 
 let dinoData = [];
 
-// Step 3) Prepare to make dino objects.
-// Don't call until user object made after button click.
+const dinos = (function (fn) {
+    fetch("./dino.json")
+    .then(response => response.json())
+    .then(json_data => {
+        // mapping dino objects from json data   
+        dinoData = json_data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.height, eachDinos.weight, eachDinos.image, eachDinos.when, eachDinos.where, eachDinos.wherewhen, eachDinos.diet, eachDinos.facts));
+        console.log('dinoData Array Contents:');
+        console.log(dinoData);
+        console.log(typeof dinoData);
+        // testing array by displaying species
+        dinoData.forEach(dino => console.log(dino.species));
+        return dinoData
+    })})(Dinosaurs)
 
-function MakeDinos(Dinosaurs, user, data) { 
-    dinoData = data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
-    // Splice user object into Dino object
-    dinoData.splice(4,0, user)
-    console.log('dinoData Array Contents:')
-    console.log(dinoData);
-    console.log(typeof dinoData);
-    // test t0 see if array of objects operational
-    console.log('List of Dinosaur Species:')
-    dinoData.forEach(dino => console.log(dino.species));
-    return dinoData
-}
-
-// Step 4) Create Human with Constructor Function
-// Call with new keyword after button click.
-
-class Human {
-    constructor(name, species, height, weight, diet) {
-        this.name = name;
-        this.species = species;
-        this.height = height;
-        this.weight = weight;
-        this.diet = diet;
-    }
-}
-
-// Step 5) Collect User Input with button click event listener
-// Use IIFE to get user input, place inside an array
-// Make new Human from collected data
+// WHAT HAPPENS AFTER BUTTON CLICK?
+// Use IIFE to get human data from form
 
 let button = document.getElementById('btn');
 
+// Declare user to be an empty object
+let userData = {}
+
+// Collect data from form with IIFE image
 button.addEventListener('click', (e) => {
     e.preventDefault();
     return (() => {
-        let name = document.getElementById('name').value;
+        let species = document.getElementById('name').value;
         let height_feet = (document.getElementById('feet').value * 12 );
         let height_inches = (document.getElementById('inches').value);
         let height = (+height_feet + +height_inches);
         let weight = document.getElementById('weight').value;
         let diet = document.getElementById('diet').value;
-        let species = "Human Being";
-        
-        // Mint new Human after button click
-        let user = new Human;
-        console.log(user.name)
-        return user      
-    })(Human);
+        // Return userData object.
+        let userData = {
+          species: species,
+          height: height,
+          weight: weight,
+          image: "./images/human.png",
+          diet: diet,
+          facts: [] };
+          console.log("User Data in IIFE Function")
+          console.log(userData);
+          return userData;
+})();
 })
 
-// Now call MakeDinos with user and Dinosaurs.
-const dino = MakeDinos(Dinosaurs, user, data);
+// From userData, make new HumanBeing
 
+/*
+// Remove form from screen
 
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches.
+// Create user object from user input
 
-    
-    // Create Dino Compare Method 2
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+// Create and/or add "weight_fact" comparision method 1 
 
-    
-    // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
+// Create and/or add "height_fact" comparision method 2 
 
+// Create and/or add "diet_fact" comparision method 3
 
-    // Generate Tiles for each Dino in Array
+// Generate Tiles for each Dino in Array
   
-        // Add tiles to DOM
+// Arange tiles on screen/Add tiles to DOM
 
-    // Remove form from screen
+// Prepare and Display Tiles on Screen
+
+*/
 
 
-// On button click, prepare and display infographic
+
+
+
+
