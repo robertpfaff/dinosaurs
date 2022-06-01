@@ -54,7 +54,7 @@ class HumanBeing extends Character {
         let weight = Number(document.getElementById('weight').value); 
         let diet = document.getElementById('diet').value; 
         let form = document.getElementById('dino-compare');
-        let user = new HumanBeing(species, height, weight, "image???", diet, "facts??");
+        let user = new HumanBeing(species, height, weight, image, diet, facts);
         
         dinoData.splice(4, 0, user);
         console.log(dinoData); // should print dinos and a human
