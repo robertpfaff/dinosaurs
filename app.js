@@ -1,4 +1,4 @@
-// Create Character Constructor
+// Create Dino Constructor
 
 class Characters {
   constructor (species, height, weight, image, when, where, wherewhen, diet, facts) {
@@ -42,7 +42,7 @@ const dinos = (function (fn) {
         console.log('dinoData Array Contents:');
         console.log(dinoData);
         console.log(typeof dinoData);
-        // testing array by displaying species
+        // Testing array by displaying species
         dinoData.forEach(dino => console.log(dino.species));
         return dinoData
     })})(Dinosaurs)
@@ -53,9 +53,8 @@ const dinos = (function (fn) {
 let button = document.getElementById('btn');
 
 // Declare user to be an empty object
-let userData = {}
-
 // Collect data from form with IIFE image
+
 button.addEventListener('click', (e) => {
     e.preventDefault();
     return (() => {
@@ -65,43 +64,23 @@ button.addEventListener('click', (e) => {
         let height = (+height_feet + +height_inches);
         let weight = document.getElementById('weight').value;
         let diet = document.getElementById('diet').value;
+        let form = document.getElementById('dino-compare');
         // Return userData object.
-        let userData = {
+        let user = {
           species: species,
           height: height,
           weight: weight,
           image: "./images/human.png",
           diet: diet,
-          facts: [] };
-          console.log("User Data in IIFE Function")
-          console.log(userData);
-          return userData;
+          facts: [] };        
+          console.log("User in IIFE Function");
+          console.log(user);
+          // If user not undefined, remove form
+          if (user != undefined) {
+            form.remove(); }
+            return user;
 })();
-})
 
-// From userData, make new HumanBeing
-
-/*
-// Remove form from screen
-
-// Create user object from user input
-
-// Create and/or add "weight_fact" comparision method 1 
-
-// Create and/or add "height_fact" comparision method 2 
-
-// Create and/or add "diet_fact" comparision method 3
-
-// Generate Tiles for each Dino in Array
-  
-// Arange tiles on screen/Add tiles to DOM
-
-// Prepare and Display Tiles on Screen
-
-*/
-
-
-
-
+});
 
 
