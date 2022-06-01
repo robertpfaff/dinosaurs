@@ -56,7 +56,13 @@ class HumanBeing extends Character {
         let form = document.getElementById('dino-compare');
         let user = new HumanBeing(species, height, weight, image, diet, facts);
         
+        // splice human data into dinoData 
         dinoData.splice(4, 0, user);
         console.log(dinoData); // should print dinos and a human
+        
+        // If dinoData not undefined, remove form
+        if (dinoData.length == 9) {
+            form.remove(); }
+            return dinoData;
     });
 })();
