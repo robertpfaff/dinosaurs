@@ -34,25 +34,20 @@ class HumanBeing extends Characters {
 let dinoData = [];
 
 const dinos = (function (fn) {
-    fetch("./dino.json")
-    .then(response => response.json())
-    .then(json_data => {
-        // mapping dino objects from json data   
-        dinoData = json_data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.height, eachDinos.weight, eachDinos.image, eachDinos.when, eachDinos.where, eachDinos.wherewhen, eachDinos.diet, eachDinos.facts));
-        console.log('dinoData Array Contents:');
-        console.log(dinoData);
-        console.log(typeof dinoData);
-        // Testing array by displaying species
-        dinoData.forEach(dino => console.log(dino.species));
-        return dinoData
-    })})(Dinosaurs)
+  fetch("./dino.json")
+  .then(response => response.json())
+  .then(json_data => {   
+      dinoData = json_data.Dinos.map(eachDinos =>new Dinosaurs(eachDinos.species, eachDinos.weight, eachDinos.height, eachDinos.diet, eachDinos.where, eachDinos.when, eachDinos.fact));
+      return dinoData
+  })
+})(Dinosaurs)
 
 // WHAT HAPPENS AFTER BUTTON CLICK?
 // Use IIFE to get human data from form
 
 let button = document.getElementById('btn');
 
-// Declare user to be an empty object
+// Declare user as an empty object
 // Collect data from form with IIFE image
 
 button.addEventListener('click', (e) => {
@@ -65,7 +60,9 @@ button.addEventListener('click', (e) => {
         let weight = document.getElementById('weight').value;
         let diet = document.getElementById('diet').value;
         let form = document.getElementById('dino-compare');
-        // Return userData object.
+        console.log('Dino Data Inside Funcion');
+        console.log(dinoData);
+        // create user data object.
         let user = {
           species: species,
           height: height,
@@ -73,14 +70,17 @@ button.addEventListener('click', (e) => {
           image: "./images/human.png",
           diet: diet,
           facts: [] };        
-          console.log("User in IIFE Function");
+          console.log("User Object Before Push");
           console.log(user);
+          // push user object into dinoData
+          dinoData.splice(4,0, user);
+          console.log("Dino Data After Push");
+          console.log(dinoData);
           // If user not undefined, remove form
-          if (user != undefined) {
+          if (dinoData.length == 9) {
             form.remove(); }
             return user;
 })();
-
 });
 
 
