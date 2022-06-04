@@ -97,14 +97,12 @@ class HumanBeing {
             // mapping dino objects from json data    
             dinoData = json_data.Dinos.map(eachDinos =>
                 new Dinosaur(eachDinos.species, eachDinos.height, eachDinos.weight,
-                    eachDinos.image, eachDinos.when, eachDinos.where, eachDinos.wherewhen,
-                    eachDinos.diet, eachDinos.facts));
+                    eachDinos.image, eachDinos.when, eachDinos.where, eachDinos.diet, eachDinos.facts));
  
             console.log('dinoData Array Contents:');
             console.log(dinoData);
             console.log(Array.isArray(dinoData));
-        });
-        
+        });        
  
     // collect form data and make user
     let button = document.getElementById('btn');
@@ -138,7 +136,7 @@ class HumanBeing {
             name_data = dinoData[i].nameComp(user);
         }
         
-                
+           
         // Now splice user/human into dinoData array; 
         dinoData.splice(4, 0, user); 
 
