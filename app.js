@@ -1,26 +1,86 @@
 class Dinosaur {
-    constructor(species, height, weight, image, when, where, wherewhen, diet, facts) {
+    constructor(species, height, weight, image, when, where, diet, facts) {
         this.species = species;
         this.height = height;
         this.weight = weight;
-        this.image = "/images" + this.species.toLowerCase() + ".png";
+        this.image = "/images/" + this.species.toLowerCase() + ".png";
         this.when = when;
         this.where = where;
-        this.wherewhen = `The ${this.species} lived in ${this.where}} during the ${this.when}`;
         this.diet = diet;
         facts = [];
         this.facts = facts;
-    }
- }
- 
+        this.weightComp = function (user) {
+            if (user.weight < this.weight) {
+                let ratio = parseFloat((this.weight - user.weight) / user.weight) * 100;
+                let number = Math.round(ratio);
+                let result = `The ${this.species} was ${number}% heavier than you.`;
+                this.facts.push(result)
+                return result;
+            } else {
+                let ratio = parseFloat((user.weight - this.weight) / this.weight) * 100;
+                let number = Math.round(ratio);
+                let result = `The ${this.species} was ${number}% lighter than you.`;
+                this.facts.push(result)
+                return result;
+        }};
+        this.heightComp = function (user) {
+            if (user.height < this.height) {
+                let difference = parseFloat(this.height - user.height);
+                let number = Math.round(difference);
+                let result = `The ${this.species} was ${number} inches taller than you.`;
+                this.facts.push(result)
+                return result;
+            } else {
+                let difference = parseFloat(user.height - this.height);
+                let number = Math.round(difference);
+                let result = `The ${this.species} was ${number} inches shorter than you.`;
+                this.facts.push(result)
+                return result;
+        }};
+        this.dietComp = function(user) {
+            switch(this.diet === user.diet) {
+                case true:
+                    let result1 = `Both the ${this.species} and you are ${this.diet}s.`;
+                    this.facts.push(result1);
+                    return result1;
+                case false:
+                    let result2 =  `You are a ${user.diet} and the ${this.species} was a ${this.diet}.`;
+                    this.facts.push(result2);
+                    return result2;
+                default:
+                    return `Sorry. Does not compute.`;                
+        }};
+        this.nameComp = function (user) {
+            let user_name = String(user.name).trim();
+            let dino_name = String(this.name).trim();
+            let user_length = user_name.length;
+            let dino_length = dino_name.length;
+            if (user_length < dino_length) {
+                let difference = parseFloat(dino_length - user_length)
+                let name_fact = `The ${this.species}'s name is ${difference} letters longer than your name, ${user.name}.`;
+                this.facts.push(name_fact);
+                return name_fact;
+            } else if  (user_length > dino_length) {
+                let difference = parseFloat(user_length - dino_length);
+                let name_fact = `The ${this.species}'s name is ${difference} letters shorter than your name, ${user.name}.`;
+                this.facts.push(name_fact);
+                return name_fact;
+            } else {
+                name_fact = `The ${this.species}'s name is the same length as your name, ${user.name}.`;
+                this.facts.push(name_fact);
+                return name_fact;
+        }};
+        
+    }        
+}
+
 class HumanBeing {
-    constructor(name, height, weight, image, diet, facts) {
+    constructor(name, height, weight, image, diet) {
         this.name = name;
         this.height = height;
         this.weight = weight;
         this.image = image;
         this.diet = diet;
-        this.facts = facts;
     }    
 }
  
@@ -30,7 +90,7 @@ class HumanBeing {
 
 (() => {
     let dinoData = [];
- 
+    // fetch dino data and make each dino
     fetch("./dino.json")
         .then(response => response.json())
         .then(json_data => {
@@ -42,9 +102,11 @@ class HumanBeing {
  
             console.log('dinoData Array Contents:');
             console.log(dinoData);
-            console.log(typeof dinoData);
+            console.log(Array.isArray(dinoData));
         });
+        
  
+    // collect form data and make user
     let button = document.getElementById('btn');
     button.addEventListener('click', (e) => {
         e.preventDefault();
@@ -59,14 +121,33 @@ class HumanBeing {
         
         let user = new HumanBeing(name, height, weight, image, diet, facts);
         
-        // splice human data into dinoData 
-        dinoData.splice(4, 0, user);
         console.log(dinoData); // should print dinos and a human
+        console.log(typeof dinoData)
         
+        // fill facts array for each dino with six facts
+        for (let i = 0; i < dinoData.length; i++) {
+            weight_data = dinoData[i].weightComp(user);
+        }
+        for (let i = 0; i < dinoData.length; i++) {
+            height_data = dinoData[i].heightComp(user);
+        }
+        for (let i = 0; i < dinoData.length; i++) {
+            diet_data = dinoData[i].dietComp(user);
+        }
+        for (let i = 0; i < dinoData.length; i++) {
+            name_data = dinoData[i].nameComp(user);
+        }
+        
+                
+        // Now splice user/human into dinoData array; 
+        dinoData.splice(4, 0, user); 
+
         let form = document.getElementById('dino-compare');
-        // If dinoData not undefined, remove form
+        // If dinoData has nine objects, then remove form
         if (dinoData.length == 9) {
             form.remove(); }
             return dinoData;
-    });
+});
+
+
 })();
