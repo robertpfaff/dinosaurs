@@ -7,7 +7,7 @@ class Dinosaur {
         this.when = when;
         this.where = where;
         this.diet = diet;
-        facts = [];
+        facts = [`The ${this.species} lived in ${this.where}`, `The ${this.species} lived during the ${this.when} period.`];
         this.facts = facts;
         this.weightComp = function (user) {
             if (user.weight < this.weight) {
@@ -146,7 +146,7 @@ class HumanBeing {
         // If dinoData has nine objects, then remove form
         if (dinoData.length == 9) {
             form.remove(); }
-            return dinoData;
+            return dinoData; 
 });
 
 
