@@ -135,8 +135,11 @@ class HumanBeing {
         for (let i = 0; i < dinoData.length; i++) {
             name_data = dinoData[i].nameComp(user);
         }
-        
-           
+        for (let i = 0; i < dinoData.length; i++) {
+            if (dinoData[i].species == "Pigeon") {
+            dinoData[i].facts = ["All birds are dinosaurs."];            
+        }}        
+                
         // Now splice user/human into dinoData array; 
         dinoData.splice(4, 0, user); 
 
