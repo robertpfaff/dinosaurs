@@ -141,24 +141,32 @@ class HumanBeing {
         // Replace Pigeon facts array with one fact.
         for (let i = 0; i < dinoData.length; i++) {
             if (dinoData[i].species == "Pigeon") {
-            dinoData[i].facts = ["All birds are dinosaurs."];            
+            dinoData[i].facts = ["All birds are dinosaurs.", "All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs." ];          
         }}        
         // Remove form, w/o deleting dinoData.
         let node = document.getElementById("dino-compare");
         if (node.parentNode) {
             node.parentNode.removeChild(node);
         }
+
+        // Make an object of randomized fun fact
+        // Randomized when browser refreshed
         
+        function randomFact(arr) {
+            fun_fact = arr[Math.floor(Math.random() * 6)];
+            console.log(fun_fact);
+            return fun_fact;
+        }
+
         //Splice human/user into dinoData array
         dinoData.splice(4, 0, user);
-        
+
         for (let i = 0; i < 9; i++) {
             if (i === 4){
                 let grid = document.getElementById('grid');
                 const user_tile = document.createElement('div');
                 user_tile.classList.add("grid-item");
                 user_tile.innerHTML=`<h3>${user.name}</h3>
-                <p>${user.name}</p>
                 <img src="./images/human.png">`;
                 grid.appendChild(user_tile);
             } else {
@@ -166,13 +174,11 @@ class HumanBeing {
                 const tile = document.createElement('div');
                 tile.classList.add("grid-item");
                 tile.innerHTML=`<h3>${dinoData[i].species}</h3>
-                <p>${dinoData[i].species}</p>
+                <p>${randomFact(dinoData[i].facts)}</p>
                 <img src="/images/${dinoData[i].species}.png">`;
                 grid.appendChild(tile);
             }
-
         }
-       
 })
 
 })();
