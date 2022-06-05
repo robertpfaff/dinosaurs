@@ -149,28 +149,30 @@ class HumanBeing {
             node.parentNode.removeChild(node);
         }
         
+        //Splice human/user into dinoData array
+        dinoData.splice(4, 0, user);
         
-        // Splice human/user into dinoData array
-        // dinoData.splice(4, 0, user);
-        
-        
-        for (let i = 0; i < dinoData.length; i++) {
-            let grid = document.getElementById('grid');
-            const tile = document.createElement('div');
-            tile.classList.add("grid-item");
-            tile.innerHTML=`<h3>${dinoData[i].species}</h3>
-            <p>${dinoData[i].species}</p>
-            <img src="/images/${dinoData[i].species}.png">`;
-            grid.appendChild(tile);
-        }
-        let grid = document.getElementById('grid');
-        const user_tile = document.createElement('div');
-        user_tile.classList.add("grid-item");
-        user_tile.innerHTML=`<h3>${user.name}</h3>
-        <p>${user.name}</p>
-        <img src="./images/human.png">`;
-        grid.insertBefore(user_tile, grid[4]);
+        for (let i = 0; i < 9; i++) {
+            if (i === 4){
+                let grid = document.getElementById('grid');
+                const user_tile = document.createElement('div');
+                user_tile.classList.add("grid-item");
+                user_tile.innerHTML=`<h3>${user.name}</h3>
+                <p>${user.name}</p>
+                <img src="./images/human.png">`;
+                grid.appendChild(user_tile);
+            } else {
+                let grid = document.getElementById('grid');
+                const tile = document.createElement('div');
+                tile.classList.add("grid-item");
+                tile.innerHTML=`<h3>${dinoData[i].species}</h3>
+                <p>${dinoData[i].species}</p>
+                <img src="/images/${dinoData[i].species}.png">`;
+                grid.appendChild(tile);
+            }
 
+        }
+       
 })
 
 })();
