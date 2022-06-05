@@ -111,7 +111,7 @@ class HumanBeing {
     button.addEventListener('click', (e) => {
         e.preventDefault();
         let name = document.getElementById('name').value;
-        let species = "human" 
+        let species = "Human Being" 
         let height_feet = Number(document.getElementById('feet').value) * 12; 
         let height_inches = Number(document.getElementById('inches').value); 
         let height = height_feet + height_inches;
@@ -138,7 +138,7 @@ class HumanBeing {
         for (let i = 0; i < dinoData.length; i++) {
             name_data = dinoData[i].nameComp(user);
         }
-        // Replace Pigeon facts array with one fact.
+        // Replace Pigeon facts array with one fact (six times).
         for (let i = 0; i < dinoData.length; i++) {
             if (dinoData[i].species == "Pigeon") {
             dinoData[i].facts = ["All birds are dinosaurs.", "All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs." ];          
@@ -158,10 +158,13 @@ class HumanBeing {
             return fun_fact;
         }
 
+        //Shuffle dinoData array before inserting user at four.
+        dinoData.sort(function() { return 0.5 - Math.random() });
+        
         //Splice human/user into dinoData array
         dinoData.splice(4, 0, user);
 
-        // Dino tiles need to shuffle
+        // Now we arrange shuffleds tiles on grid.
 
         for (let i = 0; i < 9; i++) {
             if (i === 4){
