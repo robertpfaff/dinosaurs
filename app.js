@@ -76,8 +76,9 @@ class Dinosaur {
 }
 
 class HumanBeing {
-    constructor(name, height, weight, image, diet) {
+    constructor(name, species, height, weight, image, diet) {
         this.name = name;
+        this.species = species;
         this.height = height;
         this.weight = weight;
         this.image = image;
@@ -109,7 +110,8 @@ class HumanBeing {
     let button = document.getElementById('btn');
     button.addEventListener('click', (e) => {
         e.preventDefault();
-        let name = document.getElementById('name').value; 
+        let name = document.getElementById('name').value;
+        let species = "human" 
         let height_feet = Number(document.getElementById('feet').value) * 12; 
         let height_inches = Number(document.getElementById('inches').value); 
         let height = height_feet + height_inches;
@@ -118,7 +120,7 @@ class HumanBeing {
         let diet = document.getElementById('diet').value;
         let facts = []; 
     
-        let user = new HumanBeing(name, height, weight, image, diet, facts);
+        let user = new HumanBeing(name, species, height, weight, image, diet, facts);
         
         console.log(dinoData); // should print dinos and a human
         console.log(typeof dinoData)
@@ -153,14 +155,22 @@ class HumanBeing {
         
         
         for (let i = 0; i < dinoData.length; i++) {
-            let grid=document.getElementById('grid');
-            const tile=document.createElement('div');
+            let grid = document.getElementById('grid');
+            const tile = document.createElement('div');
             tile.classList.add("grid-item");
             tile.innerHTML=`<h3>${dinoData[i].species}</h3>
             <p>${dinoData[i].species}</p>
             <img src="/images/${dinoData[i].species}.png">`;
-            grid.appendChild(tile); 
-        }   
+            grid.appendChild(tile);
+        }
+        let grid = document.getElementById('grid');
+        const user_tile = document.createElement('div');
+        user_tile.classList.add("grid-item");
+        user_tile.innerHTML=`<h3>${user.name}</h3>
+        <p>${user.name}</p>
+        <img src="./images/human.png">`;
+        grid.insertBefore(user_tile, grid[4]);
+
 })
 
 })();
