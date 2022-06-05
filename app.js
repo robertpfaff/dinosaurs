@@ -1,5 +1,5 @@
 class Dinosaur {
-    constructor(species, height, weight, image, when, where, diet, facts) {
+    constructor(species, height, weight, image, when, where, diet, facts, fun_fact) {
         this.species = species;
         this.height = height;
         this.weight = weight;
@@ -9,17 +9,18 @@ class Dinosaur {
         this.diet = diet;
         facts = [`The ${this.species} lived in ${this.where}`, `The ${this.species} lived during the ${this.when} period.`];
         this.facts = facts;
+        this.fun_fact = fun_fact;
         this.weightComp = function (user) {
             if (user.weight < this.weight) {
                 let ratio = parseFloat((this.weight - user.weight) / user.weight) * 100;
                 let number = Math.round(ratio);
-                let result = `The ${this.species} was ${number}% heavier than you.`;
+                let result = `The ${this.species} was ${number} % heavier than you.`;
                 this.facts.push(result)
                 return result;
             } else {
                 let ratio = parseFloat((user.weight - this.weight) / this.weight) * 100;
                 let number = Math.round(ratio);
-                let result = `The ${this.species} was ${number}% lighter than you.`;
+                let result = `The ${this.species} was ${number} % lighter than you.`;
                 this.facts.push(result)
                 return result;
         }};
@@ -116,7 +117,7 @@ class HumanBeing {
         let image = "./images/human.png";
         let diet = document.getElementById('diet').value;
         let facts = []; 
-        
+    
         let user = new HumanBeing(name, height, weight, image, diet, facts);
         
         console.log(dinoData); // should print dinos and a human
@@ -135,20 +136,31 @@ class HumanBeing {
         for (let i = 0; i < dinoData.length; i++) {
             name_data = dinoData[i].nameComp(user);
         }
+        // Replace Pigeon facts array with one fact.
         for (let i = 0; i < dinoData.length; i++) {
             if (dinoData[i].species == "Pigeon") {
             dinoData[i].facts = ["All birds are dinosaurs."];            
         }}        
-                
-        // Now splice user/human into dinoData array; 
-        dinoData.splice(4, 0, user); 
-
-        let form = document.getElementById('dino-compare');
-        // If dinoData has nine objects, then remove form
-        if (dinoData.length == 9) {
-            form.remove(); }
-            return dinoData; 
-});
-
+        // Remove form, w/o deleting dinoData.
+        let node = document.getElementById("dino-compare");
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+        
+        
+        // Splice human/user into dinoData array
+        // dinoData.splice(4, 0, user);
+        
+        
+        for (let i = 0; i < dinoData.length; i++) {
+            let grid=document.getElementById('grid');
+            const tile=document.createElement('div');
+            tile.classList.add("grid-item");
+            tile.innerHTML=`<h3>${dinoData[i].species}</h3>
+            <p>${dinoData[i].species}</p>
+            <img src="/images/${dinoData[i].species}.png">`;
+            grid.appendChild(tile); 
+        }   
+})
 
 })();
