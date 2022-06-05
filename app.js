@@ -10,7 +10,7 @@ class Dinosaur {
         facts = [`The ${this.species} lived in ${this.where}`, `The ${this.species} lived during the ${this.when} period.`];
         this.facts = facts;
         this.fun_fact = fun_fact;
-        this.weightComp = function (user) {
+        this.weightComp = function (user) { // Remember to format numbers.
             if (user.weight < this.weight) {
                 let ratio = parseFloat((this.weight - user.weight) / user.weight) * 100;
                 let number = Math.round(ratio);
@@ -160,6 +160,8 @@ class HumanBeing {
 
         //Splice human/user into dinoData array
         dinoData.splice(4, 0, user);
+
+        // Dino tiles need to shuffle
 
         for (let i = 0; i < 9; i++) {
             if (i === 4){
