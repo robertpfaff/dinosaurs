@@ -10,7 +10,7 @@
 
 // I could not have completed the project otherwise as it involved concepts not taught in the Udacity curriculum and
 // mentors are not immediately available for understandable reasons. The one major idea taken from someone else's GitHub 
-// repo was the decision to attach the three comparision functions to the Dinosaur class constructor as methods, 
+// repo was the decision to attach the three comparison functions to the Dinosaur class constructor as methods, 
 // which I should attribute to Brian Widgeon's repo at https://github.com/b-widg/project-one-dinosaurs/blob/main/app.js.
 
 // But the code is all original. Please contact me if you have questions.
