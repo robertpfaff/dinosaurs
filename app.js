@@ -5,6 +5,17 @@
 * @param {Robert Pfaff} author
 */
 
+// Please note: As mentioned in the comments posted with the project, I did not appropriate any code directly 
+// from anyone else's version of the same project. But I did make extensive use of other sources, especially YouTube videos. 
+
+// I could not have completed the project otherwise as it involved concepts not taught in the Udacity curriculum and
+// mentors are not immediately available for understandable reasons. The one major idea taken from someone else's GitHub 
+// repo was the decision to attach the three comparision functions to the Dinosaur class constructor as methods, 
+// which I should attribute to Brian Widgeon's repo at https://github.com/b-widg/project-one-dinosaurs/blob/main/app.js.
+
+// But the code is all original. Please contact me if you have questions.
+
+
 class Dinosaur {
     constructor(species, height, weight, image, when, where, diet, facts, fun_fact) {
         this.species = species;
