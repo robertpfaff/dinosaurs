@@ -5,16 +5,15 @@
 * @param {Robert Pfaff} author
 */
 
-// Please note: As mentioned in the comments posted with the project, I did not appropriate any code directly 
-// from anyone else's version of the same project. But I did make extensive use of other sources, especially YouTube videos. 
+// Please note: As mentioned in the comments posted with my project, I did not appropriate any code directly from
+// anyone else's version of the same project. But I did make extensive use of other sources, especially YouTube videos.
 
-// I could not have completed the project otherwise as it involved concepts not taught in the Udacity curriculum and
-// mentors are not immediately available for understandable reasons. The one major idea taken from someone else's GitHub 
-// repo was the decision to attach the three comparison functions to the Dinosaur class constructor as methods, 
-// which I should attribute to Brian Widgeon's repo at https://github.com/b-widg/project-one-dinosaurs/blob/main/app.js.
+// I could not have completed the project otherwise, as it involves concepts not taught in the curriculum and
+// mentors are not immediately available. The one major idea taken from someone else's GitHub repo was the decision
+// to attach the three comparison functions to the Dinosaur class constructor as methods, which I should attribute 
+// to Brian Widgeon's repo at https://github.com/b-widg/project-one-dinosaurs/blob/main/app.js.
 
 // But the code is all original. Please contact me if you have questions.
-
 
 class Dinosaur {
     constructor(species, height, weight, image, when, where, diet, facts, fun_fact) {
@@ -31,7 +30,6 @@ class Dinosaur {
         // Fun fact variable is used to return randomized fact from facts array.
         // See randomFact function on line 158 below.
         this.fun_fact = fun_fact;
-
         // 1) Weight comparison function
         this.weightComp = function (user) {
             if (user.weight < this.weight) {
@@ -72,7 +70,7 @@ class Dinosaur {
             } else {
                let result =  `You are a ${user.diet} and the ${this.species} was a ${this.diet}.`;
                this.facts.push(result);
-               return result;          
+               return result;
         }};
         // 4) Diet comparison function
         this.nameComp = function (user) {
@@ -123,6 +121,7 @@ class HumanBeing {
 
 (() => {
     let dinoData = [];
+
     // Fetch dino data and mint each dino
     fetch("./dino.json")
         .then(response => response.json())
@@ -131,10 +130,9 @@ class HumanBeing {
             dinoData = json_data.Dinos.map(eachDinos =>
                 new Dinosaur(eachDinos.species, eachDinos.height, eachDinos.weight,
                     eachDinos.image, eachDinos.when, eachDinos.where, eachDinos.diet, eachDinos.facts));
-    });
+});
 
     // Collect form data and make user after button click.
-
     let button = document.getElementById('btn');
     button.addEventListener('click', (e) => {
         e.preventDefault();
@@ -151,19 +149,19 @@ class HumanBeing {
         // After form validation mint new human
         let user = new HumanBeing(name, species, height, weight, image, diet, facts);
 
-        // Call weightComp method
-        for (let i = 0; i < dinoData.length; i++) {         
+        // Call weightComp method for each dino
+        for (let i = 0; i < dinoData.length; i++) {
           weight_data = dinoData[i].weightComp(user);
         }
-        // Call heightComp method
+        // Call heightComp method for each dino
         for (let i = 0; i < dinoData.length; i++) {
             height_data = dinoData[i].heightComp(user);
         }
-        // Perform diet comparison
+        // Perform diet comparison for each dino
         for (let i = 0; i < dinoData.length; i++) {
             diet_data = dinoData[i].dietComp(user);
         }
-        // Perform name comparison
+        // Perform name comparison for each dino
         for (let i = 0; i < dinoData.length; i++) {
             name_data = dinoData[i].nameComp(user);
         }
@@ -178,19 +176,18 @@ class HumanBeing {
             node.parentNode.removeChild(node);
         }
 
-        // Called on line 209-210 below
         // Function assigns one random fact to fun_fact
-        // Randomized after browser refreshed
-        // And new user info entered
+        // property. Randomized after browser refreshed
+        // And new user input entered into form.
 
         function randomFact(arr) {
             let fun_fact = arr[Math.floor(Math.random() * 6)];
             return fun_fact;
         }
 
-        // Shuffle dinoData array before inserting user at four.
-        // Dino images appear in random location on grid
-        // While person image stays in place
+        // Shuffle dinoData array before splicing user at
+        // forth position. Dino images appear in random locations
+        // on grid while person image stays in center.
 
         dinoData.sort(function() { return 0.5 - Math.random() });
 
