@@ -54,17 +54,14 @@ class Dinosaur {
         }};
         // 3) Diet comparison function
         this.dietComp = function(user) {
-            switch(this.diet === user.diet) {
-                case true:
-                    let result1 = `Both the ${this.species} and you are ${this.diet}s.`;
-                    this.facts.push(result1);
-                    return result1;
-                case false:
-                    let result2 =  `You are a ${user.diet} and the ${this.species} was a ${this.diet}.`;
-                    this.facts.push(result2);
-                    return result2;
-                default:
-                    return `Sorry. Does not compute.`;
+            if (this.diet === user.diet) {
+              let result = `Both the ${this.species} and you are ${this.diet}s.`;
+              this.facts.push(result);
+              return result;
+            } else {
+               let result =  `You are a ${user.diet} and the ${this.species} was a ${this.diet}.`;
+               this.facts.push(result);
+               return result;          
         }};
         // 4) Diet comparison function
         this.nameComp = function (user) {
@@ -83,9 +80,10 @@ class Dinosaur {
                 this.facts.push(name_fact);
                 return name_fact;
             } else {
-                name_fact = `The ${this.species}'s name is the same length as your name, ${user.name}.`;
-                this.facts.push(name_fact);
-                return name_fact;
+              let name_fact;
+              name_fact = `The ${this.species}'s name is the same length as your name, ${user.name}.`;
+              this.facts.push(name_fact);
+              return name_fact;
         }};
     }
 }
@@ -130,9 +128,6 @@ class HumanBeing {
     button.addEventListener('click', (e) => {
         e.preventDefault();
         let name = document.getElementById('name').value;
-        if (name.value = "" || null) {
-            messages.push("Name is a required field.")
-        }
         let species = "Human Being"
         let height_feet = Number(document.getElementById('feet').value) * 12;
         let height_inches = Number(document.getElementById('inches').value);
@@ -146,8 +141,8 @@ class HumanBeing {
         let user = new HumanBeing(name, species, height, weight, image, diet, facts);
 
         // Call weightComp method
-        for (let i = 0; i < dinoData.length; i++) {
-            weight_data = dinoData[i].weightComp(user);
+        for (let i = 0; i < dinoData.length; i++) {         
+          weight_data = dinoData[i].weightComp(user);
         }
         // Call heightComp method
         for (let i = 0; i < dinoData.length; i++) {
@@ -165,7 +160,7 @@ class HumanBeing {
         for (let i = 0; i < dinoData.length; i++) {
             if (dinoData[i].species == "Pigeon") {
             dinoData[i].facts = ["All birds are dinosaurs.", "All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs.","All birds are dinosaurs." ];          
-        }};
+        }}
         // Remove form on click, w/o deleting dinoData.
         let node = document.getElementById("dino-compare");
         if (node.parentNode) {
@@ -178,7 +173,7 @@ class HumanBeing {
         // And new user info entered
 
         function randomFact(arr) {
-            fun_fact = arr[Math.floor(Math.random() * 6)];
+            let fun_fact = arr[Math.floor(Math.random() * 6)];
             return fun_fact;
         }
 
